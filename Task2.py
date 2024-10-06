@@ -15,14 +15,22 @@ def guess_gender(name):
 
 ###########################################
 
-def weird_weather_bot():
+def intro():
     
     f = Figlet(font="slant")
     print(f.renderText("HEY!"))
 
     print("Welcome to the weird weather bot :)")
     print("-----------------------------------\n")
-    name = input("May I take your first name please? ")
+
+def nameGuess():
+    validName=False
+    while validName==False:
+        name = input("May I take your first name please? ")
+        if name.isalpha()==True:
+            validName=True
+        else:
+            print("please enter a valid name")
     gender_result = guess_gender(name)
     gender = gender_result[0]
     prob_percent = gender_result[1]
@@ -34,16 +42,28 @@ def weird_weather_bot():
     else:
         print("Ahhhh, sorry! :(")
 
-    postcode_raw = input("\nSo, what's your postcode? ")
-    postcode_resp = requests.get(f"https://api.postcodes.io/postcodes/{postcode_raw}").json()
+def postcode(p):
+    postcode_resp = requests.get(f"https://api.postcodes.io/postcodes/{p}").json()
 
     area = postcode_resp['result']['admin_ward']
-    longitude = postcode_resp['result']['longitude']
-    latitude = postcode_resp['result']['latitude']
     print(f"Nice! so you live in {area}.\n")
-
     print("Let me just check the weather there today...\n")
-    
+    return area
+
+def latitude(p):
+    postcode_resp = requests.get(f"https://api.postcodes.io/postcodes/{p}").json()
+
+    latitude = postcode_resp['result']['latitude']
+    return latitude
+
+def longitude(p):
+
+    postcode_resp = requests.get(f"https://api.postcodes.io/postcodes/{p}").json()
+
+    longitude = postcode_resp['result']['longitude']
+    return longitude
+
+def catFact():
     for i in range(3):
         time.sleep(1)
         print("...")
@@ -63,6 +83,7 @@ def weird_weather_bot():
     time.sleep(5)
     print("\nNow, back to getting the weather...")
 
+def weather():
     for i in range(3):
         time.sleep(1)
         print("...")
@@ -79,14 +100,23 @@ def weird_weather_bot():
     print(f"{main_weather_desc} - {second_weather_desc}")
     print("\nThank you! Bye.")
 
-weird_weather_bot()
+intro()
+nameGuess()
+postcode_raw = input("\nSo, what's your postcode? ")
+area=postcode(postcode_raw)
+latitude=latitude(postcode_raw)
+longitude=longitude(postcode_raw)
+catFact()
+weather()
 
 
 # After you have written the reusable functions, answer the following:
 # Questions:
-# 1. What are the preconditions for your code not to break?
-# 2. Validate the user's input based on your preconditions.
+# 1. What are the preconditions for your code not to break? the user's name must only contain letters.
+# 2. Validate the user's input based on your preconditions. 
 # 3. Why was it useful to use reusable components in this case? Please mention at least 2 reasons and don't forget to contextualise.
+# One reason why it is useful to use reusable components is because it will save time. For example, the postcode() function can be reused to find the area of the user in another program, so a new function does not need to be created.
+# Another reason is that our code will be shorter. For example, by creating the postcode_raw variable in the main program, it will not need to be included in every function.
 
 # Further Tasks:
 # 1. Put your functions in seperate appropriate files and import them in.

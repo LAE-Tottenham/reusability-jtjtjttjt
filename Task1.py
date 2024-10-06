@@ -7,40 +7,52 @@
 
 ###########################################
 
-def weird_calculation():
-    # get the length and width of the first triangle from the user
-    opp1 = float(input("Enter your first triangle's opposite side length: "))
-    adj1 = float(input("Enter your first triangle's adjacent side length: "))
+import math
+from T1functions import *
 
-    # work out the hyp
-    import math
-    hyp1 = math.sqrt(opp1**2 + adj1**2)
 
-    # get the length and width of the second triangle from the user
-    opp2 = float(input("Enter your second triangle's opposite side length: "))
-    adj2 = float(input("Enter your second triangle's adjacent side length: "))
 
-    # work out the hyp
-    import math
-    hyp2 = math.sqrt(opp2**2 + adj2**2)
-
-    # create a third triangle with the hyp1 as the opp and hyp2 as the adj
-    opp3 = hyp1
-    adj3 = hyp2
-    
-    import math
-    hyp3 = math.sqrt(opp3**2 + adj3**2)
-    return hyp3
-
-weird_answer = weird_calculation()
+hyp1=firstHyp()
+hyp2=secondHyp()
+weird_answer = triangle(hyp1,hyp2)
 print(weird_answer)
+
+validTask=False
+while validTask==False:
+    task=int(input("pick the task you want to perform: 1. pythagoras 2. soh 3. cah 4. toa 5. cosine rule 6. sine rule"))
+    if task==1: 
+        ans=firstHyp()
+        validTask=True
+    elif task==2:
+        ans=soh()
+        validTask=True
+    elif task==3:
+        ans=cah()
+        validTask=True
+    elif task==4:
+        ans=toa()
+        validTask=True
+    elif task==5:
+        ans=cosineRule()
+        validTask=True
+    elif task==6:
+        ans=sineRule()
+        validTask=True
+    else:
+        print("please enter a valid task number")
+print(ans)
+
 
 
 # After you have written the reusable functions, answer the following:
 # Questions:
-# 1. What are the preconditions for your code not to break?
+# 1. What are the preconditions for your code not to break? the lengths and widths must be greater than 0
+
 # 2. Validate the user's input based on your preconditions.
+
 # 3. Why was it useful to use reusable components in this case? Please mention at least 2 reasons and don't forget to contextualise.
+#One reason why reusable components are useful is because they can save time as the functions made can be reused in other programs. For example, the functions firstHyp() and secondaryHyp() can both be reused in other programs to find the hypotenuse of any tiangle that the user enters.
+#Another reason why reusable components are useful is because it improves the reliability of your programs, as the functions made have already been tested and so can be reusued without needing further testing.
 
 # Further Tasks:
 # 1. Put your functions in seperate appropriate files and import them in.
